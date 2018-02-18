@@ -5,7 +5,7 @@ Multi-purpose, lightweight Node.js server to bootstrap your project.
 ## Table of content
 * [Features](#features)
 * [Install](#install)
-* [Configure](#configure)
+* [Configure and start your server](#configure)
 * [Usage](#usage)
 
 ##<a name="features"></a> Features
@@ -28,14 +28,15 @@ cd server
 npm install
 ```
 
-##<a name="configure"></a> Configure
+##<a name="configure"></a> Configure and start your server
 * All configurations are made in ONE file `config.json`
-* This configuration is for <a href="http://pm2.keymetrics.io/docs/usage/application-declaration/" target="_blank">PM2</a> daemon
+* This configuration is for <a href="http://pm2.keymetrics.io/docs/usage/application-declaration/" target="_blank">PM2</a> daemon. It's highly recommended to get familiar with PM2 before continuing.
 * Install <a href="https://www.mongodb.com/" target="_blank">MongoDB</a> and have your connection string ready
 * Register Facebook app if you want to integrate Facebook login (optional)
 * Install PM2 to your local and server machine
 ```
 sudo npm install pm2 -g
+pm2 install pm2-server-monit
 ```
 * Have your email account for system mail (if you don't input with, user related API will result errors)
 * Complete these information in `config.json`
@@ -156,6 +157,6 @@ pm2 deploy config.json staging update
 ```
 ##### Link your remote server with PM2
 * Create your free account at <a href="https://app.keymetrics.io/#/" target="_blank">PM2 app</a>
-* Follow instruction on PM2 app. The result will look like this
-![Auto-hide side-bar](public/images/pm2.png)
+* Follow simple instructions on PM2 app. The result will look like this
+![PM2 console](public/images/pm2.png)
 
