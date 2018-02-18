@@ -20,7 +20,7 @@ Multi-purpose, lightweight, easy to expand, shipped with lots of features Node.j
 * Integrated socket.io real time engine (can turn on/off)
 * Easy to scale with PM2 (for small to mid-level size project)
 
-##Install <a name="install"></a> 
+## Install <a name="install"></a> 
 * Make sure you you Node.js installed before running the following commands
 ```javascript
 git clone https://github.com/sonttran/server.git
