@@ -167,10 +167,10 @@ pm2 deploy config.json staging update
 ```javascript
 this.permission = { // register api and its permission to list
 
-    // API name                         API permission
+    // API name  API permission
 
-    myNewAPI                : ['master', 'admin', 'user', 'public'],
-    ...
+    myNewAPI     : ['master', 'admin', 'user', 'public'], // all user type in list can access this API
+    // ...
 }
 
 this.myNewAPI = function(req, res, cb) {
@@ -188,3 +188,18 @@ http://localhost:300/api/v1/myNewAPI
     "myNewAPI": "add successful!"
 }
 ```
+* API return errors (you can pass Node.js Error Object. Non-production environment will give more insight about error)
+```javascript
+this.myNewAPI = function(req, res, cb) {
+    // ... your code
+    cb({message: 'something went wrong!' }, null); // done
+}
+```
+* Error response from API call `http://localhost:300/api/v1/myNewAPI`
+```javascript
+{
+    "ERROR": "api called: 'myNewAPI'",
+    "errorMessage": "something went wrong!"
+}
+```
+* Note: API accepts all `http` methods

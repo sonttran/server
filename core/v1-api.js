@@ -131,7 +131,8 @@ this.permission = { // register api and its permission to list
 }
 
 this.myNewAPI = function(req, res, cb) {
-    cb(null, { myNewAPI : 'add successful!' });
+//    cb(null, { myNewAPI : 'add successful!' });
+    cb({message: 'something went wrong!' }, null); // done
 }
 
 
