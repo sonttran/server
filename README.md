@@ -203,7 +203,7 @@ this.myNewAPI = function(req, res, cb) {
     "errorMessage": "something went wrong!"
 }
 ```
-* Explain: `req`, `res` are <a href="https://expressjs.com/" target="_blank">ExpressJS</a> <a href="https://expressjs.com/en/4x/api.html#req" target="_blank">request</a> and <a href="response" target="_blank">response</a> object. `cb` is callback method to when API procssing is done.
+* Explain: `req`, `res` are <a href="https://expressjs.com/" target="_blank">ExpressJS</a> <a href="https://expressjs.com/en/4x/api.html#req" target="_blank">request</a> and <a href="response" target="_blank">response</a> object. `cb` is callback method to when API processing is done.
 ```javascript
     cb(err, null) // error callback
     cb(null, {}) // success callback
