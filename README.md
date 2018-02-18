@@ -20,7 +20,7 @@ Multi-purpose, lightweight, easy to expand, shipped with lots of features Node.j
 * Integrated socket.io real time engine (can turn on/off)
 * Easy to scale with PM2 (for small to mid-level size project)
 
-## Install <a name="install"></a> 
+### Install <a name="install"></a> 
 * Make sure you you Node.js installed before running the following commands
 ```javascript
 git clone https://github.com/sonttran/server.git
@@ -28,7 +28,7 @@ cd server
 npm install
 ```
 
-##<a name="configure"></a> Configure and start your server
+### Configure and start your server<a name="configure"></a>
 * All configurations are made in ONE file `config.json`
 * This configuration is for <a href="http://pm2.keymetrics.io/docs/usage/application-declaration/" target="_blank">PM2</a> to daemonize your server process. It's highly recommended to get familiar with PM2 before continuing.
 * Install <a href="https://www.mongodb.com/" target="_blank">MongoDB</a> and have your connection string ready
@@ -160,5 +160,5 @@ pm2 deploy config.json staging update
 * Follow simple instructions on PM2 app. The result will look like this
 ![PM2 console](public/images/pm2.gif)
 
-##<a name="usage"></a> Usage
+### Usage<a name="usage"></a>
 
