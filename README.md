@@ -29,10 +29,14 @@ npm install
 ```
 
 ##<a name="configure"></a> Configure
-* All configuration are made in ONE file `config.json`
-* This configuration is for <a href="http://pm2.keymetrics.io/docs/usage/application-declaration/" target="_blank">PM2</a> 
-* Install <a href="http://pm2.keymetrics.io/docs/usage/application-declaration/" target="_blank">MongoDB</a> and have your connection string ready
+* All configurations are made in ONE file `config.json`
+* This configuration is for <a href="http://pm2.keymetrics.io/docs/usage/application-declaration/" target="_blank">PM2</a> daemon
+* Install <a href="https://www.mongodb.com/" target="_blank">MongoDB</a> and have your connection string ready
 * Register Facebook app if you want to integrate Facebook login (optional)
+* Install PM2 to your local and server machine
+```
+sudo npm install pm2 -g
+```
 * Have your email account for system mail (if you don't input with, user related API will result errors)
 * Complete these information in `config.json`
 ```javascript
@@ -150,5 +154,8 @@ pm2 deploy config.json staging setup
 ```
 pm2 deploy config.json staging update
 ```
-
+##### Link your remote server with PM2
+* Create your free account at <a href="https://app.keymetrics.io/#/" target="_blank">PM2 app</a>
+* Follow instruction on PM2 app. The result will look like this
+![Auto-hide side-bar](public/images/pm2.png)
 
