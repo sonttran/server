@@ -1,6 +1,7 @@
 [![npm version](https://badge.fury.io/js/ng-file-upload.svg)](http://badge.fury.io/js/ng-file-upload)
 # Vpop 
 Multi-purpose, lightweight, easy to expand, shipped with lots of features Node.js server to bootstrap your project.
+Technologies used: Node.js, ExpressJS, MongoDB, json Web Token, Node mailer, PM2, 
 
 ## Table of content
 * [Features](#features)
@@ -202,4 +203,9 @@ this.myNewAPI = function(req, res, cb) {
     "errorMessage": "something went wrong!"
 }
 ```
-* Note: API accepts all `http` methods
+* Explain: `req`, `res` are <a href="https://expressjs.com/" target="_blank">ExpressJS</a> <a href="https://expressjs.com/en/4x/api.html#req" target="_blank">request</a> and <a href="response" target="_blank">response</a> object. `cb` is callback method to when API procssing is done.
+```javascript
+    cb(err, null) // error callback
+    cb(null, {}) // success callback
+```
+* Note: API accepts all `http` methods (`GET`, `POST`, `PUT`, `DELETE`, ...)
