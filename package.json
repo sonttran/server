@@ -1,0 +1,52 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Lightweight, fully functional Node.js server using ExpressJS",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sonttran/server.git"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "user",
+    "permission",
+    "seo",
+    "socket.io",
+    "handlebars",
+    "passport",
+    "jwt",
+    "pm2",
+    "api"
+  ],
+  "author": "Son Tran",
+  "license": "GNU v3",
+  "bugs": {
+    "url": "https://github.com/sonttran/server/issues"
+  },
+  "homepage": "https://github.com/sonttran/server#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.2",
+    "express-handlebars": "^3.0.0",
+    "helmet": "^3.11.0",
+    "jsonwebtoken": "^8.1.1",
+    "moment": "^2.20.1",
+    "mongoose": "^5.0.6",
+    "morgan": "^1.9.0",
+    "multer": "^1.3.0",
+    "nodemailer": "^4.4.2",
+    "passport": "^0.4.0",
+    "passport-facebook": "^2.1.1",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^4.5.0",
+    "q": "^1.5.1",
+    "request": "^2.83.0",
+    "socket.io": "^2.0.4"
+  }
+}

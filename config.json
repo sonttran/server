@@ -1,41 +1,3 @@
-[![npm version](https://badge.fury.io/js/ng-file-upload.svg)](http://badge.fury.io/js/ng-file-upload)
-# Vpop 
-Multi-purpose, lightweight Node.js server to bootstrap your project.
-
-## Table of content
-* [Features](#features)
-* [Install](#install)
-* [Configure](#configure)
-* [Usage](#usage)
-
-##<a name="features"></a> Features
-* Take less than 60 seconds to add a new API
-* Built-in user role-based access control for API request
-* Built-in user role-based access control for webpage request
-* Shipped with basic user management: registration, email verification, ...
-* Shipped with user registration via Facebook
-* Shipped with mailing capability (send mail to user, system admin, ...)
-* Shipped with file upload API
-* Shipped with integrated Handlebars engine for HTML rendering
-* Integrated socket.io real time engine (can turn on/off)
-* Easy to scale with PM2 (for small to mid-level size project)
-
-##<a name="install"></a> Install
-* Make sure you you Node.js installed before running the following commands
-```javascript
-git clone https://github.com/sonttran/server.git
-cd server
-npm install
-```
-
-##<a name="configure"></a> Configure
-* All configuration are made in ONE file `config.json`
-* This configuration is for <a href="http://pm2.keymetrics.io/docs/usage/application-declaration/" target="_blank">PM2</a> 
-* Install <a href="http://pm2.keymetrics.io/docs/usage/application-declaration/" target="_blank">MongoDB</a> and have your connection string ready
-* Register Facebook app if you want to integrate Facebook login (optional)
-* Have your email account for system mail (if you don't input with, user related API will result errors)
-* Complete these information in `config.json`
-```javascript
 {
     apps : [
         {
@@ -133,22 +95,4 @@ npm install
         },
     }
 }
-```
-##### Start and tail your server locally after all configuration completed
-```
-pm2 start config.json --env local
-pm2 logs server
-```
-##### Deploy your server in remote server after all configuration completed
-- Get your file folder and put it config file `"FILES" : "/home/producttion/FILES/"`
-- Clone your repo to server by
-```
-pm2 deploy config.json staging setup
-```
-- Get your app public folder and put it in config file `"PUBLIC" : "/home/producttion/yourapp/current/public"`
-- Start your server remotely with
-```
-pm2 deploy config.json staging update
-```
-
 
