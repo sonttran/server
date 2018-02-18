@@ -38,7 +38,7 @@ npm install
 sudo npm install pm2 -g
 pm2 install pm2-server-monit
 ```
-* Have your email account for system mail (user related API will result errors)
+* Have your email account for system mail (if not, user related API will result errors)
 * Complete information in `config.json` file
 ```javascript
 {
@@ -49,12 +49,12 @@ pm2 install pm2-server-monit
             exec_mode               : "cluster", // for scaling
             instances               : 1, // # of processes at start
             watch                   : ["core","server.js"], // files to watch for auto restart
-            env_local               : { // "local" in `pm2 start config.json --env local`
+            env_local               : { // your "local" environment in `pm2 start config.json --env local`
                 "NODE_ENV"          : "local", // e.g. process.env.NODE_ENV = "local"
                 "PORT"              : 3000, // server port
                 "HOST"              : '0.0.0.0', // server host
                 "DB_URL"            : 'mongodb://localhost:27017/app', // connection string to MongoDB
-                "JWT_SECRET"        : 'SkyFall', // json web token secret
+                "JWT_SECRET"        : 'Breaking Dawn', // json web token secret
                 "SESSION_TIMER"     : "7 days", // time config for user session
                 "FORGOT_PASS_TIMER" : "24h", // time config for password recovery token
                 "FB_CLIENT_ID"      : "111100106689192", // Facebook ID for login with Facebook
@@ -77,7 +77,7 @@ pm2 install pm2-server-monit
                 "SERVER_ADMIN_EMAIL": 'admin_mail@example.com', // email to receive system alerts
                 "SERVER_NAME"       : "Local Server", // name of your server in email
             },
-            env_production          : { // "production" in `pm2 start config.json --env production`
+            env_production          : { // your "production" environment in remote server with `pm2 start config.json --env production`
                 "NODE_ENV"          : "production", 
                 "PORT"              : 5600,
                 "HOST"              : '127.0.0.1',
