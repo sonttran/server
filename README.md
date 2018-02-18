@@ -8,8 +8,8 @@ Multi-purpose, lightweight, easy to expand, shipped with lots of features Node.j
 * [Configure and start your server](#configure)
 * [Usage](#usage)
 
-#### Features <a name="features"></a> 
-* Take less than 60 seconds to add a new API
+### Features <a name="features"></a> 
+* [Take less than 60 seconds to add a new API](#60s)
 * Built-in user role-based access control for API request
 * Built-in user role-based access control for webpage request
 * Shipped with basic user management: registration, email verification, ...
@@ -162,3 +162,4 @@ pm2 deploy config.json staging update
 
 ### Usage<a name="usage"></a>
 
+#### Take less than 60 seconds to add a new API<a name="60s"></a>
