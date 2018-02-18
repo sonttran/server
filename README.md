@@ -1,6 +1,6 @@
 [![npm version](https://badge.fury.io/js/ng-file-upload.svg)](http://badge.fury.io/js/ng-file-upload)
 # Vpop 
-Multi-purpose, lightweight Node.js server to bootstrap your project.
+Multi-purpose, lightweight, easy to expand, shipped with lots of features Node.js server to bootstrap your project.
 
 ## Table of content
 * [Features](#features)
@@ -30,7 +30,7 @@ npm install
 
 ##<a name="configure"></a> Configure and start your server
 * All configurations are made in ONE file `config.json`
-* This configuration is for <a href="http://pm2.keymetrics.io/docs/usage/application-declaration/" target="_blank">PM2</a> daemon. It's highly recommended to get familiar with PM2 before continuing.
+* This configuration is for <a href="http://pm2.keymetrics.io/docs/usage/application-declaration/" target="_blank">PM2</a> to daemonize your server process. It's highly recommended to get familiar with PM2 before continuing.
 * Install <a href="https://www.mongodb.com/" target="_blank">MongoDB</a> and have your connection string ready
 * Register Facebook app if you want to integrate Facebook login (optional)
 * Install PM2 to your local and server machine
@@ -38,8 +38,8 @@ npm install
 sudo npm install pm2 -g
 pm2 install pm2-server-monit
 ```
-* Have your email account for system mail (if you don't input with, user related API will result errors)
-* Complete these information in `config.json`
+* Have your email account for system mail (user related API will result errors)
+* Complete information in `config.json` file
 ```javascript
 {
     apps : [
@@ -48,8 +48,8 @@ pm2 install pm2-server-monit
             script                  : "./server.js", // file to bootstrap
             exec_mode               : "cluster", // for scaling
             instances               : 1, // # of processes at start
-            watch                   : ["core","server.js"], // file to watch for auto restart
-            env_local               : { // "local" in pm2 start config.json --env local
+            watch                   : ["core","server.js"], // files to watch for auto restart
+            env_local               : { // "local" in `pm2 start config.json --env local`
                 "NODE_ENV"          : "local", // e.g. process.env.NODE_ENV = "local"
                 "PORT"              : 3000, // server port
                 "HOST"              : '0.0.0.0', // server host
@@ -77,7 +77,7 @@ pm2 install pm2-server-monit
                 "SERVER_ADMIN_EMAIL": 'admin_mail@example.com', // email to receive system alerts
                 "SERVER_NAME"       : "Local Server", // name of your server in email
             },
-            env_production          : { // "production" in pm2 start config.json --env production
+            env_production          : { // "production" in `pm2 start config.json --env production`
                 "NODE_ENV"          : "production", 
                 "PORT"              : 5600,
                 "HOST"              : '127.0.0.1',
@@ -144,9 +144,9 @@ pm2 install pm2-server-monit
 pm2 start config.json --env local
 pm2 logs server
 ```
-##### Deploy your server in remote server after all configuration completed
+##### Deploy your server in remote server
 - Get your file folder and put it config file `"FILES" : "/home/producttion/FILES/"`
-- Clone your repo to server by
+- Clone your repo to server
 ```
 pm2 deploy config.json staging setup
 ```
@@ -155,8 +155,8 @@ pm2 deploy config.json staging setup
 ```
 pm2 deploy config.json staging update
 ```
-##### Link your remote server with PM2
+##### Link your remote server with PM2 console for monitoring
 * Create your free account at <a href="https://app.keymetrics.io/#/" target="_blank">PM2 app</a>
 * Follow simple instructions on PM2 app. The result will look like this
-![PM2 console](public/images/pm2.png)
+![PM2 console](public/images/pm2.gif)
 
