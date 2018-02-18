@@ -58,6 +58,8 @@ this.permission = { // register api and its permission to list
 
     // API name                         API permission
 
+    myNewAPI                : ['master', 'admin', 'user', 'public'],
+    
     // user
     createUser              : ['master', 'admin', 'user', 'public'],
     getUser                 : ['master', 'admin', 'user'],
@@ -128,7 +130,9 @@ this.permission = { // register api and its permission to list
     setCarousel4                        : ['master', 'admin'],
 }
 
-
+this.myNewAPI = function(req, res, cb) {
+    cb(null, { myNewAPI : 'add successful!' });
+}
 
 
 

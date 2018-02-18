@@ -163,3 +163,28 @@ pm2 deploy config.json staging update
 ### Usage<a name="usage"></a>
 
 #### Take less than 60 seconds to add a new API<a name="60s"></a>
+* In `/core/v1-api.json` add your api and register it
+```javascript
+this.permission = { // register api and its permission to list
+
+    // API name                         API permission
+
+    myNewAPI                : ['master', 'admin', 'user', 'public'],
+    ...
+}
+
+this.myNewAPI = function(req, res, cb) {
+    cb(null, {myNewAPI : 'add successful!'}); // done
+}
+```
+* Try your newly added API. Open your web browser, go to
+```
+http://localhost:300/api/v1/myNewAPI
+```
+* API reponse
+```
+{
+    "SUCCESS": "api called: 'myNewAPI'",
+    "myNewAPI": "add successful!"
+}
+```
