@@ -20,7 +20,7 @@ Multi-purpose, lightweight, easy to expand, shipped with lots of features Node.j
 * Integrated socket.io real time engine (can turn on/off)
 * Easy to scale with PM2 (for small to mid-level size project)
 
-##<a name="install"></a> Install
+##Install <a name="install"></a> 
 * Make sure you you Node.js installed before running the following commands
 ```javascript
 git clone https://github.com/sonttran/server.git
@@ -159,4 +159,6 @@ pm2 deploy config.json staging update
 * Create your free account at <a href="https://app.keymetrics.io/#/" target="_blank">PM2 app</a>
 * Follow simple instructions on PM2 app. The result will look like this
 ![PM2 console](public/images/pm2.gif)
+
+##<a name="usage"></a> Usage
 
