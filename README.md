@@ -1,7 +1,7 @@
 [![npm version](https://badge.fury.io/js/ng-file-upload.svg)](http://badge.fury.io/js/ng-file-upload)
 # Vpop 
 Multi-purpose, lightweight, easy to expand, shipped with lots of features Node.js server to bootstrap your project.
-Technologies used: Node.js, ExpressJS, MongoDB, json Web Token, Node mailer, PM2, 
+Technologies used: <a href="https://nodejs.org/en/" target="_blank">Node.js</a>, <a href="https://expressjs.com/" target="_blank">ExpressJS</a>, <a href="https://www.mongodb.com/" target="_blank">MongoDB</a>, <a href="https://www.npmjs.com/package/mongoose" target="_blank">Mongoose</a>, <a href="https://jwt.io/" target="_blank">JSON Web Token</a>, <a href="https://nodemailer.com/about/" target="_blank">Node Mailer</a>, <a href="https://github.com/Unitech/pm2" target="_blank">PM2</a>, <a href="https://socket.io/" target="_blank">socket.io</a>
 
 ## Table of content
 * [Features](#features)
@@ -157,7 +157,7 @@ pm2 deploy config.json staging update
 ```
 ##### Link your remote server with PM2 console for monitoring
 * Create your free account at <a href="https://app.keymetrics.io/#/" target="_blank">PM2 app</a>
-* Follow simple instructions on PM2 app. The result will look like this
+* Follow simple linking instructions on PM2 app. The result will look like this
 ![PM2 console](public/images/pm2.gif)
 
 ### Usage<a name="usage"></a>
