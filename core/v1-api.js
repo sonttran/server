@@ -14,12 +14,11 @@ var noReplyMail         = JSON.parse(process.env.MAIL_NO_REPLY);
 var errReportMail       = JSON.parse(process.env.ERR_MAIL);
 var transporter         = nodemailer.createTransport(noReplyMail);
 
-//disk storage setting
-var storage = multer.diskStorage({
+
+var storage = multer.diskStorage({ //disk storage setting
     destination : function(req, file, cb) { cb(null, process.env.FILES + '/file/'); },
     filename    : function(req, file, cb) {
         cb(null, Date.now()+'_'+ file.originalname);
-        //        cb(null, Date.now()+'-'+ file.originalname + '.' + file.originalname.split('.')[file.originalname.split('.').length -1]);
     }
 });
 
@@ -45,8 +44,6 @@ var upload = multer({
 
 
 
-var tags                = require('./tags');
-var tagss2              = require('./tagss2');
 var routes              = require('./routes');
 var user                = require('./db-structure/user');
 
@@ -81,9 +78,7 @@ this.permission = { // register api and its permission to list
     // internal use apis
     download                            : [],
     delFiles                            : [],
-    removeDocs                          : [],
     renderPage                          : [],
-    makeTags                            : [],
     reportError                         : [],
     getServerErr                        : ['master'],
 
@@ -120,35 +115,12 @@ this.createUser = function(req, res, cb) {
             cb(null, {username : retUser.username});
             var token = palmot.getToken({username: retUser.email}, process.env.FORGOT_PASS_TIMER);
             var mail = {
-                from        : `Mudibala <${noReplyMail.auth.user}>`, // sender email
+                from        : `Your app name <${noReplyMail.auth.user}>`, // sender email
                 to          : `${retUser.email}`, // list of receivers
-                subject     : `Chào mừng bạn đến với Mudibala`,
+                subject     : `Welcome`,
                 html        : `<html><body>
-<p>Thân chào từ Mudibala team,</p>
-<p>Cám ơn bạn đã đăng kí thành viên tại <a href="${req.protocol}://${req.HOST_NAME}">Mudibala</a>. Cộng đồng chia sẻ thông tin toàn diện cho mọi người rất vui khi đón nhận thành viên mới là bạn - Mudibalord. "Đối xử với người khác như cách mình muốn người khác đối xử với mình" là quy tắc ứng xử chung khi tham gia Mudibala. Xin hãy cùng chung tay xây dựng cộng đồng thông tin tích cực, có ích cho xã hội. Chúng tôi có niềm tin mãnh liệt rằng chia sẻ thông tin hiệu quả giữa mọi cá nhân trong xã hội sẽ giúp mọi người cùng sống hiệu quả hơn về thời gian và tiền bạc. Đây là kim chỉ nam trong việc xây dựng Mudibala. Mudibala luôn lắng nghe <a href="${req.protocol}://${req.HOST_NAME}/gui-gop-y">góp ý</a> của bạn để phục vụ bạn tốt hơn (bạn cần đăng nhập trước khi góp ý).</p>
-<p>Trước khi sử dụng, <a href="${req.protocol}://${req.HOST_NAME}/api/v1/verifyEmail?q=${token}">vui lòng xác nhận email bằng cách nhấn vào đây</a>. Đường dẫn xác nhận email chỉ có hiệu lực trong 24 giờ kể từ lúc bạn nhận được email này.</p>
-<p>Bạn có thể đọc thêm các bài blog về Mudibala, rất hữu ích để dùng Mudibala hiệu quả:</p>
-<p>Mẹo <a href="${req.protocol}://${req.HOST_NAME}/dung-mudibala-hieu-qua">sử dụng Mudibala hiệu quả</a>:</p>
-<ul>
-<li><a href="${req.protocol}://${req.HOST_NAME}/blog/su-dung-hieu-qua-cong-cu-loc-tin">Sử dụng hiệu quả công cụ lọc tin</a></li>
-<li><a href="${req.protocol}://${req.HOST_NAME}/blog/soan-noi-dung-tin-dang-hieu-qua">Soạn nội dung tin đăng hiệu quả</a></li>
-</ul>
-<p>Một số thông tin thêm về Mudibala từ trang <a href="${req.protocol}://${req.HOST_NAME}/blog">blog</a>:</p>
-<ul>
-<li><a href="${req.protocol}://${req.HOST_NAME}/blog/mudibala-la-gi">Mudibala là gì?</a></li>
-<li><a href="${req.protocol}://${req.HOST_NAME}/blog/chinh-sach-bao-mat-mudibala">Chính sách bảo mật</a></li>
-<li><a href="${req.protocol}://${req.HOST_NAME}/blog/dieu-khoan-su-dung-mudibala">Điều khoản sử dụng</a></li>
-</ul>
-<p>"Like" và theo dõi Mudibala trên các kênh xã hội để biết về cập nhật mới nhanh nhất:</p>
-<ul>
-<li><a href="https://www.facebook.com/mudibalaBoard/">Mudibala trên Facebook</a></li>
-<li><a href="https://www.pinterest.com/mudibalaBoard/">Mudibala trên Pinterest</a></li>
-</ul>
-<p>Với Mudibala, thông tin của bạn sẽ được tất cả mọi người dễ dàng tìm thấy. Nên hãy nhớ, Mudibalord "với quyền lực càng lớn, trách nhiệm càng nhiều!". Hãy luôn đăng tin có trách nhiệm!</p>
-<p><i>Thân,<br>
-Mudibala team</i></p>
-<i style="color:grey">(Xin lưu ý đây là email tự động từ hệ thống. Vui lòng không hồi đáp.)</i>
-</body></html>` // html body
+                    <p>Welcome email body</p>
+                </body></html>` // html body
             };
 
             // send mail
@@ -172,13 +144,8 @@ this.updateUser = function(req, res, cb) {
 this.delUser = function(req, res, cb) {
     user.findByIdAndRemove(req.decoded.username).then(retUser => {
         res.clearCookie('x-access-token');
-//        cb(null, {deletedUser : retUser});
         res.redirect(`/`);
         _this.delFiles(['avatar'], retUser);
-//        _this.removeDocs('loadingPort',         retUser.loadingPort,        loadingPort);
-//        _this.removeDocs('dischargePort',       retUser.dischargePort,      dischargePort);
-//        _this.removeDocs('routeAndDistance',    retUser.routeAndDistance,   routeAndDistance);
-//        _this.removeDocs('lngCarrier',          retUser.lngCarrier,         lngCarrier);
     }).catch(err => { cb(err, null)});
 }
 
@@ -197,22 +164,6 @@ this.delFiles = function(array, collection) {
                 catch(err) { console.log(err) }
             })
         }
-    }
-}
-
-
-this.removeDocs = function(collectionName, array, collectionSchema) {
-    if(array && array.length) {
-        array.forEach(item => {
-            collectionSchema.findByIdAndRemove(item.id).then(retDoc => {
-                if(collectionName == 'loadingPort' && retDoc.COU.length) {
-                    var filesToDel = [];
-                    for(var i = 0; i < retDoc.COU.length; i++) { filesToDel.push(retDoc.COU[i].path) }
-                    _this.delFiles(filesToDel, null) 
-                }
-            }).catch(err => { console.log(err);  });
-            console.log(`deleted ${item.name}`)
-        })
     }
 }
 
@@ -271,16 +222,12 @@ this.changePassword = function(req, res, cb) {
                         retUser.save();
                         res.clearCookie('x-access-token');
                         var mail = {
-                            from        : `Mudibala <${noReplyMail.auth.user}>`, // sender email
+                            from        : `Your app name <${noReplyMail.auth.user}>`, // sender email
                             to          : `${req.decoded.username}`, // list of receivers
-                            subject     : `Đổi mật khẩu thành công`,
+                            subject     : `Password change success`,
                             html        : `<html><body>
-<p>Thân chào từ <a href="${req.protocol}://${req.HOST_NAME}">Mudibala</a>,</p>
-<p>Đây là email thông báo bạn đã đổi mật khẩu thành công của tài khoản Mudibala gắn với email này.</p>
-<p><i>Thân,<br>
-Mudibala team</i></p>
-<i style="color:grey">(Xin lưu ý đây là email tự động từ hệ thống. Vui lòng không hồi đáp.)</i>
-</body></html>` // html body
+                                <p>Password change success</p>
+                            </body></html>` // html body
                         };
                         transporter.sendMail(mail, function(err, info) { // send mail
                             if(err) { console.log(err) }
@@ -296,16 +243,12 @@ Mudibala team</i></p>
 this.sendResetPassLink = function(req, res, cb) {
     var token = palmot.getToken({username: req.body.email}, process.env.FORGOT_PASS_TIMER);
     var mail = {
-        from        : `Mudibala <${noReplyMail.auth.user}>`, // sender email
+        from        : `Your app name <${noReplyMail.auth.user}>`, // sender email
         to          : `${req.body.email}`, // list of receivers
-        subject     : `Lấy lại mật khẩu`,
+        subject     : `Password recovery`,
         html        : `<html><body>
-<p>Thân chào từ <a href="${req.protocol}://${req.HOST_NAME}">Mudibala</a>,</p>
-<p>Chúng tôi nhận được yêu cầu khôi phục mật khẩu từ tài khoản gắn với email của bạn. Để thiết lập mật khẩu mới, vui lòng <a href="${req.protocol}://${req.HOST_NAME}/dat-lai-mat-khau?q=${token}">nhấn vào đây</a>. Đường dẫn thiết lập mật khẩu mới chỉ có hiệu lực trong 24 giờ kể từ lúc bạn nhận được email này</p>
-<p><i>Thân,<br>
-Mudibala team</i></p>
-<i style="color:grey">(Xin lưu ý đây là email tự động từ hệ thống. Vui lòng không hồi đáp.)</i>
-</body></html>` // html body
+            <p>Get token and process it here.</p>
+        </body></html>` // html body
     };
     cb(null, {user : req.body.email})
     transporter.sendMail(mail, function(err, info) { // send mail
@@ -332,16 +275,12 @@ this.resetPassword = function(req, res, cb) {
 this.sendVerificationEmail = function(req, res, cb) {
     var token = palmot.getToken({username: req.decoded.username}, process.env.FORGOT_PASS_TIMER);
     var mail = {
-        from        : `Mudibala <${noReplyMail.auth.user}>`, // sender email
+        from        : `Your app name <${noReplyMail.auth.user}>`, // sender email
         to          : `${req.decoded.username}`, // list of receivers
-        subject     : `Xác nhận email`,
+        subject     : `Verify email`,
         html        : `<html><body>
-<p>Thân chào từ <a href="${req.protocol}://${req.HOST_NAME}">Mudibala</a>,</p>
-<p>Bạn nhận được email này vì bạn đã yêu cầu gửi lại đường dẫn xác nhận email. <a href="${req.protocol}://${req.HOST_NAME}/api/v1/verifyEmail?q=${token}">Vui lòng xác nhận email bằng cách nhấn vào đây</a>. Đường dẫn xác nhận email chỉ có hiệu lực trong 24 giờ kể từ lúc bạn nhận được email này.</p>
-<p><i>Thân,<br>
-Mudibala team</i></p>
-<i style="color:grey">(Xin lưu ý đây là email tự động từ hệ thống. Vui lòng không hồi đáp.)</i>
-</body></html>` // html body
+            <p>Get token and create verify email link here</p>
+        </body></html>` // html body
     };
     cb(null, {user : req.decoded.username})
     transporter.sendMail(mail, function(err, info) { // send mail

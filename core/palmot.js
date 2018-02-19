@@ -149,7 +149,6 @@ this.initSocketIO = function(io) {
     io.on('connection', function(socket) {
         connections.push(socket);
         console.log('Connect: %s connected', connections.length); // connect alert
-
         socket.on('disconnect', function(socket) {
             connections.splice(connections.indexOf(socket),1);
             console.log('Disconnect: %s connnected', connections.length); // disconnect alert
@@ -195,35 +194,12 @@ this.initPassport = function(app) {
                     }).then(retUser => {
                         done(null, retUser);
                         var mail = {
-                            from        : `Mudibala <${noReplyMail.auth.user}>`, // sender email
+                            from        : `Your App name <${noReplyMail.auth.user}>`, // sender email
                             to          : `${retUser.email}`, // list of receivers
-                            subject     : `Chào mừng bạn đến với Mudibala`,
+                            subject     : `Welcome`,
                             html        : `<html><body>
-<p>Thân chào từ Mudibala team,</p>
-<p>Cám ơn bạn đã đăng kí thành viên tại <a href="${req.protocol}://${req.HOST_NAME}">Mudibala</a>. Cộng đồng chia sẻ thông tin toàn diện cho mọi người rất vui khi đón nhận thành viên mới là bạn - Mudibalord. "Đối xử với người khác như cách mình muốn người khác đối xử với mình" là quy tắc ứng xử chung khi tham gia Mudibala. Xin hãy cùng chung tay xây dựng cộng đồng thông tin tích cực, có ích cho xã hội. Chúng tôi có niềm tin mãnh liệt rằng chia sẻ thông tin hiệu quả giữa mọi cá nhân trong xã hội sẽ giúp mọi người cùng sống hiệu quả hơn về thời gian và tiền bạc. Đây là kim chỉ nam trong việc xây dựng Mudibala. Mudibala luôn lắng nghe <a href="${req.protocol}://${req.HOST_NAME}/gui-gop-y">góp ý</a> của bạn để phục vụ bạn tốt hơn (bạn cần đăng nhập trước khi góp ý).</p>
-<p>Bạn đã đăng kí thành viên Mudibala thông qua Facebook. Tài khoản và email của bạn đã được kích hoạt, mọi chức năng đã sẵn sàng để sử dụng.</p>
-<p>Bạn có thể đọc thêm các bài blog về Mudibala, rất hữu ích để dùng Mudibala hiệu quả:</p>
-<p>Mẹo <a href="${req.protocol}://${req.HOST_NAME}/dung-mudibala-hieu-qua">sử dụng Mudibala hiệu quả</a>:</p>
-<ul>
-<li><a href="${req.protocol}://${req.HOST_NAME}/blog/su-dung-hieu-qua-cong-cu-loc-tin">Sử dụng hiệu quả công cụ lọc tin</a></li>
-<li><a href="${req.protocol}://${req.HOST_NAME}/blog/soan-noi-dung-tin-dang-hieu-qua">Soạn nội dung tin đăng hiệu quả</a></li>
-</ul>
-<p>Một số thông tin thêm về Mudibala từ trang <a href="${req.protocol}://${req.HOST_NAME}/blog">blog</a>:</p>
-<ul>
-<li><a href="${req.protocol}://${req.HOST_NAME}/blog/mudibala-la-gi">Mudibala là gì?</a></li>
-<li><a href="${req.protocol}://${req.HOST_NAME}/blog/chinh-sach-bao-mat-mudibala">Chính sách bảo mật</a></li>
-<li><a href="${req.protocol}://${req.HOST_NAME}/blog/dieu-khoan-su-dung-mudibala">Điều khoản sử dụng</a></li>
-</ul>
-<p>"Like" và theo dõi Mudibala trên các kênh xã hội để biết về cập nhật mới nhanh nhất:</p>
-<ul>
-<li><a href="https://www.facebook.com/mudibalaBoard/">Mudibala trên Facebook</a></li>
-<li><a href="https://www.pinterest.com/mudibalaBoard/">Mudibala trên Pinterest</a></li>
-</ul>
-<p>Với Mudibala, thông tin của bạn sẽ được tất cả mọi người dễ dàng tìm thấy. Nên hãy nhớ, Mudibalord "với quyền lực càng lớn, trách nhiệm càng nhiều!". Hãy luôn đăng tin có trách nhiệm!</p>
-<p><i>Thân,<br>
-Mudibala team</i></p>
-<i style="color:grey">(Xin lưu ý đây là email tự động từ hệ thống. Vui lòng không hồi đáp.)</i>
-</body></html>` // html body
+                                <p>Welcome email body</p>
+                            </body></html>` // html body
                         };
                         transporter.sendMail(mail, function(err, info) { if(err){ console.log(err) }});
                     }).catch(err => { done(err, null) })
@@ -234,23 +210,22 @@ Mudibala team</i></p>
 }
 
 this.envWiseConfig = function(app, morgan, palmot, mongoose) {
-
     if(process.env.NODE_ENV !== 'production') {
         var util = require('util');
         util.inspect.styles = {
-            special     : 'green',
-            number      : 'blue',
-            boolean     : 'red',
-            undefined   : 'red',
-            null        : 'red',
-            string      : 'magenta',
-            symbol      : 'green',
-            date        : 'blue',
-            regexp      : 'green',
+            "special"     : 'green',
+            "number"      : 'blue',
+            "boolean"     : 'red',
+            "undefined"   : 'red',
+            "null"        : 'red',
+            "string"      : 'magenta',
+            "symbol"      : 'green',
+            "date"        : 'blue',
+            "regexp"      : 'green',
         };
-        //                mongoose.set('debug', true);
-        //                app.use(morgan('dev'));
-        //                console.log('Environment: `%s`. Logger, mongoose debug in use.', process.env.NODE_ENV);
+        // mongoose.set('debug', true);
+        // app.use(morgan('dev')); // turn on/off morgan logger
+        // console.log('Environment: `%s`. Logger, mongoose debug in use.', process.env.NODE_ENV);
         palmot.errRes = function(apiName, err) { return {
             ERROR           : `api called: '${apiName}'`,
             errorName       : err.name,
@@ -264,70 +239,18 @@ this.envWiseConfig = function(app, morgan, palmot, mongoose) {
             else if(!l5){ console.log(l1, l2, l3, l4) }
             else { console.log(l1, l2, l3, l4, l5) }
         };
-        palmot.printDup = function(tags) {
-            var list = [];
-            console.log('*** printing tags:');
-            for(tag1 in tags.s) {
-                list.push(tag1)
-                console.log('\t %s', tag1);
-                if(tags.s[tag1].s) { for(tag2 in tags.s[tag1].s) {
-                    list.push(tag2)
-                    console.log('\t\t %s, %s', tag1, tag2)
-                    if(tags.s[tag1].s[tag2].s) { for(tag3 in tags.s[tag1].s[tag2].s) {
-                        list.push(tag3)
-                        console.log('\t\t\t %s, %s, %s', tag1, tag2, tag3)
-                        if(tags.s[tag1].s[tag2].s[tag3].s) { for(tag4 in tags.s[tag1].s[tag2].s[tag3].s) {
-                            list.push(tag4)
-                            console.log('\t\t\t\t %s, %s, %s, %s', tag1, tag2, tag3, tag4)
-                            if(tags.s[tag1].s[tag2].s[tag3].s[tag4].s) { for(tag5 in tags.s[tag1].s[tag2].s[tag3].s[tag4].s) {
-                                list.push(tag5)
-                                console.log('\t\t\t\t\t %s, %s, %s, %s, %s', tag1, tag2, tag3, tag4, tag5)
-                            }}
-                        }}
-                    }}
-                }}
-            }
-            var uniq = list.map((name) => { return {count: 1, name: name} })
-            .reduce((a, b) => { a[b.name] = (a[b.name] || 0) + b.count
-            return a }, {})
-            var duplicates = Object.keys(uniq).filter((a) => uniq[a] > 1)
-            console.log('*** printing duplicate tags array:');
-            console.log(duplicates)
-        }
     } else {
         palmot.errRes = function(apiName, err) { return {
             ERROR           : `api called: '${apiName}'`,
             errorName       : err.name,
             errorMessage    : err.message,
         }};
-        palmot.log = function() { }
-        palmot.printDup = function() { }
+        palmot.log = function() { };
     }
 }
 
 this.renderNotFound = function (req, res, next) { res.render('notFound') }
-this.allRequestErrorHandler = function (err, req, res, next) { res.status(err.status || 500).json(err) }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+this.allRequestErrorHandler = function (err, req, res, next) {res.status(err.status || 500).json(err)}
 
 
 
