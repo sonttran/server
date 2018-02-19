@@ -60,7 +60,7 @@ pm2 install pm2-server-monit
                 "FB_CLIENT_SEC"     : "111111111101330ab2e7672142d06040", // Facebook secret
                 "FB_CALLBACK_URL"   : "http://localhost:3000/api/v1/loginWithFacebookCb", // callback
                 "PUBLIC"            : "/Users/sontran/Doc/server/public/", // path to your public folder 
-                "FILES"             : "/Users/son/Dropbox/FILES/resell", // path to store your server files
+                "FILES"             : "/Users/sontran/FILES/server", // path to store your server files
                 "MAIL_NO_REPLY"     : {service: "gmail", // config server mail
                                        auth: {
                                            user: "example@gmail.com",
@@ -107,7 +107,7 @@ pm2 install pm2-server-monit
         }
     ],
     "deploy"                        : { // for staging server deployment
-        "staging"                   : { // "staging" in pm2 deploy config.json staging setup
+        "staging"                   : { // "staging" in `pm2 deploy config.json staging setup`
             "user"                  : "username", // server user
             "host"                  : ["57.57.57.57"], // server IP
             "ref"                   : "origin/master",
@@ -164,6 +164,7 @@ pm2 deploy config.json staging update
 * `/core/palmot.js` contains all ExpressJS middlewares
 * `/core/v1-api.js` contains all APIs
 * `/core/routes.js` contains all definitions of APIs and webpage routes
+* `/views` contains all Handlebars templates
 
 
 #### Take less than 60 seconds to add a new API<a name="60s"></a>
