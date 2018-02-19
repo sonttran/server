@@ -1,7 +1,6 @@
-[![npm version](https://badge.fury.io/js/ng-file-upload.svg)](http://badge.fury.io/js/ng-file-upload)
 # Vpop 
 Multi-purpose, lightweight, easy to expand, shipped with lots of features Node.js server to bootstrap your project.
-Technologies used: <a href="https://nodejs.org/en/" target="_blank">Node.js</a>, <a href="https://expressjs.com/" target="_blank">ExpressJS</a>, <a href="https://www.mongodb.com/" target="_blank">MongoDB</a>, <a href="https://www.npmjs.com/package/mongoose" target="_blank">Mongoose</a>, <a href="https://jwt.io/" target="_blank">JSON Web Token</a>, <a href="https://nodemailer.com/about/" target="_blank">Node Mailer</a>, <a href="https://github.com/Unitech/pm2" target="_blank">PM2</a>, <a href="https://socket.io/" target="_blank">socket.io</a>
+Technologies used: <a href="https://nodejs.org/en/" target="_blank">Node.js</a>, <a href="https://expressjs.com/" target="_blank">ExpressJS</a>, <a href="https://www.mongodb.com/" target="_blank">MongoDB</a>, <a href="https://www.npmjs.com/package/mongoose" target="_blank">Mongoose</a>, <a href="https://jwt.io/" target="_blank">JSON Web Token</a>, <a href="https://nodemailer.com/about/" target="_blank">Node Mailer</a>, <a href="https://github.com/Unitech/pm2" target="_blank">PM2</a>, <a href="https://socket.io/" target="_blank">socket.io</a>, <a href="http://www.passportjs.org/" target="_blank">Passport</a>
 
 ## Table of content
 * [Features](#features)
