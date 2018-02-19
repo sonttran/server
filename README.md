@@ -16,7 +16,7 @@ Technologies used: Node.js, ExpressJS, MongoDB, json Web Token, Node mailer, PM2
 * [Shipped with basic user management: registration, email verification, ...](#users)
 * [Shipped with mailing capability (send mail to user, system admin, ...)](#email)
 * [Shipped with file upload API](#upload)
-* Shipped with integrated Handlebars engine for HTML rendering
+* [Shipped with integrated Handlebars engine for HTML rendering](#hbs)
 * Integrated socket.io real time engine (can turn on/off)
 * Easy to scale with PM2 (for small to mid-level size project)
 
@@ -343,3 +343,13 @@ this.changeAvatar = function(req, res, cb) {
 }
 ```
 
+
+#### Shipped with integrated Handlebars engine for HTML rendering<a name="hbs"></a>
+* Configuration for <a href="https://www.npmjs.com/package/express-handlebars" target="_blank">Handlebars engine for Express</a> is in `/server.js` file. It's highly recommended to familiar yourself with Handlebars engine for Express before moving on.
+* Main layout file `/views/layouts/main.hbs`
+* `/view/partials` folder contains your `.hbs` partials such as webpage footer, navbar
+* Webpage templates are in `/views` folders such as `home.hbs`, `login.hbs`
+* Steps to add new page:
+* Register routes in `/core/routes.js`
+* Register route to `renderPage` (internal used) API in `/core/v1-api.js`
+* Note: the idea to pass the rendering steps like above is to centralize all APIs to a single file.
