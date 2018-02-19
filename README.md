@@ -14,8 +14,7 @@ Technologies used: Node.js, ExpressJS, MongoDB, json Web Token, Node mailer, PM2
 * [Built-in user role-based access control for API request](#built-in-ac)
 * [Built-in user role-based access control for webpage request](#built-in-web-ac)
 * [Shipped with basic user management: registration, email verification, ...](#users)
-* Shipped with user registration via Facebook
-* Shipped with mailing capability (send mail to user, system admin, ...)
+* [Shipped with mailing capability (send mail to user, system admin, ...)](#email)
 * Shipped with file upload API
 * Shipped with integrated Handlebars engine for HTML rendering
 * Integrated socket.io real time engine (can turn on/off)
@@ -287,3 +286,43 @@ this.loadRoutes = function(app) {
     loginWithFacebookCb     : ['master', 'admin', 'user', 'public'],
     updateProfile           : ['master', 'admin', 'user'],
 ```
+
+
+#### Shipped with mailing capability (send mail to user, system admin, ...)<a name="email"></a>
+* Server is integated with Node mailer by default. Example `reportError` API to system admin 
+```javascript
+this.reportError = function(err) {
+    var now = moment();
+    var errDate = now.format('YYYY/MM/DD HH:mm:ss Z');
+    var errAt = err.stack.match(/\/.+?(?=\))/)[0];
+    var mail = {
+        from        : `${process.env.SERVER_NAME} <${errReportMail.auth.user}>`, // sender email
+        to          : `${process.env.SERVER_ADMIN_EMAIL}`, // list of receivers
+        subject     : `Exception thrown`,
+        html        : `<html><body>
+            <p><b>Date</b>          : ${errDate}</p>
+            <p><b>Name</b>          : ${err.name}</p>
+            <p><b>Message</b>       : ${err.message}</p>
+            <p><b>At</b>            : ${errAt}</p>
+            <p><b>Full error</b>    : ${err.stack}</p>
+            </body></html>` // html body
+    };
+    transporter.sendMail(mail, function(err, info) { if(err) { _this.reportError(err) }});
+    var errToSave = {
+        dateDis     : errDate,
+        date        : Date.now(),
+        name        : err.name,
+        message     : err.message,
+        at          : errAt,
+    }
+    system.findById('error').then(retError => {
+        if(retError) {
+            retError.err.push(errToSave);
+            retError.save();
+        } else {
+            system.create({name: 'error', _id:'error',err:[errToSave]}).catch(err => palmot.log(err));
+        }
+    }).catch(err => _this.reportError(err));
+}
+```
+
