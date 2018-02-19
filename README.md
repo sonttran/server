@@ -20,7 +20,7 @@ Technologies used: <a href="https://nodejs.org/en/" target="_blank">Node.js</a>,
 * [Easy to scale with PM2 (for small to mid-level size project)](#scale)
 
 ### Install <a name="install"></a> 
-* Make sure you you Node.js installed before running the following commands
+* Make sure you have <a href="https://nodejs.org/en/" target="_blank">Node.js</a> installed before running the following commands
 ```javascript
 git clone https://github.com/sonttran/server.git
 cd server
