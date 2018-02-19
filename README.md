@@ -11,7 +11,7 @@ Technologies used: Node.js, ExpressJS, MongoDB, json Web Token, Node mailer, PM2
 
 ### Features <a name="features"></a> 
 * [Take less than 60 seconds to add a new API](#60s)
-* Built-in user role-based access control for API request
+* [Built-in user role-based access control for API request](#built-in-ac)
 * Built-in user role-based access control for webpage request
 * Shipped with basic user management: registration, email verification, ...
 * Shipped with user registration via Facebook
@@ -162,6 +162,11 @@ pm2 deploy config.json staging update
 ![PM2 console](public/images/pm2.gif)
 
 ### Usage<a name="usage"></a>
+* `/core/db-structure` contains all Mongoose schemas
+* `/core/palmot.js` contains all ExpressJS middlewares
+* `/core/v1-api.js` contains all APIs
+* `/core/routes.js` contains all definitions of APIs and webpage routes
+
 
 #### Take less than 60 seconds to add a new API<a name="60s"></a>
 * In `/core/v1-api.json` add your api and register it
@@ -209,3 +214,18 @@ this.myNewAPI = function(req, res, cb) {
     cb(null, {}) // success callback
 ```
 * Note: API accepts all `http` methods (`GET`, `POST`, `PUT`, `DELETE`, ...)
+
+
+#### Built-in user role-based access control for API request<a name="built-in-ac"></a>
+* When user created, user permission is defined in user schema `/core/db-structure/user.js`
+```javascript
+    userPermission : { type : String, default : 'user' },
+```
+* When user logins successfully, a token is issued and stored in user's browser (API `login`)
+* When creating an API in `/core/v1-api.js`, make sure to list all user permission to that api.
+```javascript
+    api1 : ['master', 'admin', 'user', 'public'], // every body can access
+    api2 : ['master', 'admin', 'user'],           // registered user and up
+    api3 : ['master', 'admin'],                   // web admin and up
+    api4 : ['master'],                            // only system master 
+```
