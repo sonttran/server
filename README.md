@@ -12,7 +12,7 @@ Technologies used: Node.js, ExpressJS, MongoDB, json Web Token, Node mailer, PM2
 ### Features <a name="features"></a> 
 * [Take less than 60 seconds to add a new API](#60s)
 * [Built-in user role-based access control for API request](#built-in-ac)
-* Built-in user role-based access control for webpage request
+* [Built-in user role-based access control for webpage request](#built-in-web-ac)
 * Shipped with basic user management: registration, email verification, ...
 * Shipped with user registration via Facebook
 * Shipped with mailing capability (send mail to user, system admin, ...)
@@ -224,8 +224,45 @@ this.myNewAPI = function(req, res, cb) {
 * When user logins successfully, a token is issued and stored in user's browser (API `login`)
 * When creating an API in `/core/v1-api.js`, make sure to list all user permission to that api.
 ```javascript
+this.permission = { // register api and its permission to list
     api1 : ['master', 'admin', 'user', 'public'], // every body can access
     api2 : ['master', 'admin', 'user'],           // registered user and up
     api3 : ['master', 'admin'],                   // web admin and up
     api4 : ['master'],                            // only system master 
+}
 ```
+* See `checkAPIpermission` middlewares in `/core/palmot.js` for more details
+
+#### Built-in user role-based access control for webpage request<a name="built-in-web-ac"></a>
+
+* All routes definitions and access permissions are defined in `/core/routes.js`
+* Register your routes (APIs and webpages)
+```javascript
+this.pageRoutes = { // lv1 page routes
+    // route                                hbs                     page permission
+    '/'                                 : ['home',                 'master','admin','user','public'],
+    '/user-dashboard'                   : ['userPage',             'master','admin','user'],
+    '/admin-dashboard'                  : ['adminPage',            'master','admin'],
+    '/web-master-dashboard'             : ['masterPage',           'master'],
+    '/login'                            : ['login',                'master','admin','user','public'],
+    '/verify-email'                     : ['verifyEmail',          'master','admin','user','public'],
+    '/update-profile'                   : ['updateProfile',        'master','admin','user','public'],
+};
+```
+* Define pattern of your routes
+```javascript
+this.apiRoutes = /^\/api\/v1\/([a-zA-Z0-9]+)$/; // /lv1/lv2/lv3 api routes
+this.fileRoutes = /^\/file\//; // /lv1/lv2 file routes
+```
+* Check for route permission with `checkRoutePermission` middleware
+* Finally, load all routes to ExpressJS
+```javascript
+this.loadRoutes = function(app) {
+    app.all('/', palmot.getUser, palmot.renderPage);
+    app.all('/:lv1', palmot.getUser, palmot.renderPage);
+    app.all('/:lv1/:lv2/:lv3', palmot.checkAPIpermission, palmot.callAPI);
+}
+```
+* Notes: 100% of routes are controled. If you don't define your routes and loads it, server will redirect to `Not Found` page.
+
+
