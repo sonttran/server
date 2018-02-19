@@ -15,7 +15,7 @@ Technologies used: Node.js, ExpressJS, MongoDB, json Web Token, Node mailer, PM2
 * [Built-in user role-based access control for webpage request](#built-in-web-ac)
 * [Shipped with basic user management: registration, email verification, ...](#users)
 * [Shipped with mailing capability (send mail to user, system admin, ...)](#email)
-* Shipped with file upload API
+* [Shipped with file upload API](#upload)
 * Shipped with integrated Handlebars engine for HTML rendering
 * Integrated socket.io real time engine (can turn on/off)
 * Easy to scale with PM2 (for small to mid-level size project)
@@ -323,6 +323,23 @@ this.reportError = function(err) {
             system.create({name: 'error', _id:'error',err:[errToSave]}).catch(err => palmot.log(err));
         }
     }).catch(err => _this.reportError(err));
+}
+```
+
+
+#### Shipped with file upload API<a name="upload"></a>
+* File upload capability uses <a href="https://www.npmjs.com/package/multer" target="_blank">Multer</a>. Modify `storage` or `upload` object in `/core/v1-api.js` for Multer settings if needed. File upload example
+```javascript
+this.changeAvatar = function(req, res, cb) {
+    upload(req, res, function(err) {
+        if(err) { cb(err, null) } else if(req.files && req.files.length) {
+            user.findByIdAndUpdate(req.decoded.username, {$set : {
+                avatar      : '/file/' + req.files[0].filename
+            }}, {new: false}).then(retUser => {
+                cb(null, {});
+            }).catch(err => { cb(err, null) });
+        } else { cb(null, {err : 'no file sent'}) };
+    });
 }
 ```
 

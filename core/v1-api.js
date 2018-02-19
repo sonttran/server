@@ -285,10 +285,6 @@ this.changeAvatar = function(req, res, cb) {
             user.findByIdAndUpdate(req.decoded.username, {$set : {
                 avatar      : '/file/' + req.files[0].filename
             }}, {new: false}).then(retUser => {
-                //                if(retUser.avatar) { // try catch just works with SYNC
-                //                    try { fs.unlinkSync(process.env.FILES + retUser.avatar) } 
-                //                    catch(err) { console.log(err) }
-                //                }
                 cb(null, {});
             }).catch(err => { cb(err, null) });
         } else { cb(null, {err : 'no file sent'}) };
