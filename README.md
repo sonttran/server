@@ -17,7 +17,7 @@ Technologies used: Node.js, ExpressJS, MongoDB, json Web Token, Node mailer, PM2
 * [Shipped with mailing capability (send mail to user, system admin, ...)](#email)
 * [Shipped with file upload API](#upload)
 * [Shipped with integrated Handlebars engine for HTML rendering](#hbs)
-* Integrated socket.io real time engine (can turn on/off)
+* [Integrated socket.io real time engine (can turn on/off)](#io)
 * Easy to scale with PM2 (for small to mid-level size project)
 
 ### Install <a name="install"></a> 
@@ -353,3 +353,47 @@ this.changeAvatar = function(req, res, cb) {
 * Register routes in `/core/routes.js`
 * Register route to `renderPage` (internal used) API in `/core/v1-api.js`
 * Note: the idea to pass the rendering steps like above is to centralize all APIs to a single file.
+
+
+#### Integrated socket.io real time engine (turn it on/off)<a name="io"></a>
+
+* To turn <a href="https://socket.io/" target="_blank">socket.io</a> on
+* Uncomment socket.io line in `/server.js`
+```javascript
+    var io  = require('socket.io').listen(server);
+```
+* Uncomment socket.io line in `/core/palmot.js` (there are two of them)
+```javascript
+    if(api.permission.useIO.indexOf(apiName) > -1) { req.io = _this.io };
+    if(api.permission.useIO.indexOf(apiName) > -1) { req.io = _this.io };
+```
+* Create your socket.io API in `/core/v1-api.js`
+```javascript
+this.io = function(req, res, cb) {
+    var io = req.io;
+    io.sockets.emit('broadcast', req.query.mess);
+    cb(null, {broadcasted : req.query.mess});
+}
+```
+* Recognize the API as a socket.io API
+```javascript
+this.permission = { // register api and its permission to list
+
+    // API name                         API permission
+
+    // socket.io
+    useIO                               : ['io'], // api uses realtime engine
+        
+}
+```
+* Register user permission for it as normal
+```javascript
+this.permission = { // register api and its permission to list
+
+    // API name                         API permission
+
+    // socket.io
+    
+    io                                  : ['master'], // only system master can use this API
+}
+```
