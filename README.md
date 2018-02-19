@@ -13,7 +13,7 @@ Technologies used: Node.js, ExpressJS, MongoDB, json Web Token, Node mailer, PM2
 * [Take less than 60 seconds to add a new API](#60s)
 * [Built-in user role-based access control for API request](#built-in-ac)
 * [Built-in user role-based access control for webpage request](#built-in-web-ac)
-* Shipped with basic user management: registration, email verification, ...
+* [Shipped with basic user management: registration, email verification, ...](#users)
 * Shipped with user registration via Facebook
 * Shipped with mailing capability (send mail to user, system admin, ...)
 * Shipped with file upload API
@@ -266,3 +266,24 @@ this.loadRoutes = function(app) {
 * Notes: 100% of routes are controled. If you don't define your routes and loads it, server will redirect to `Not Found` page.
 
 
+#### Shipped with basic user management: registration, email verification, ...<a name="users"></a>
+
+* Server is shipped with user management APIs and its permissions. Ready to use to bootstrap your application
+```javascript
+    createUser              : ['master', 'admin', 'user', 'public'],
+    getUser                 : ['master', 'admin', 'user'],
+    updateUser              : ['master', 'admin'],
+    delUser                 : ['master', 'admin', 'user'],
+    login                   : ['master', 'admin', 'user', 'public'],
+    logout                  : ['master', 'admin', 'user'],
+    changeName              : ['master', 'admin', 'user'],
+    changeAvatar            : ['master', 'admin', 'user'],
+    changePassword          : ['master', 'admin', 'user'],
+    sendResetPassLink       : ['master', 'admin', 'user', 'public'],
+    resetPassword           : ['master', 'admin', 'user', 'public'],
+    sendVerificationEmail   : ['master', 'admin', 'user'],
+    verifyEmail             : ['master', 'admin', 'user', 'public'],
+    loginWithFacebook       : ['master', 'admin', 'user', 'public'],
+    loginWithFacebookCb     : ['master', 'admin', 'user', 'public'],
+    updateProfile           : ['master', 'admin', 'user'],
+```
