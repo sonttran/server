@@ -18,7 +18,7 @@ Technologies used: Node.js, ExpressJS, MongoDB, json Web Token, Node mailer, PM2
 * [Shipped with file upload API](#upload)
 * [Shipped with integrated Handlebars engine for HTML rendering](#hbs)
 * [Integrated socket.io real time engine (can turn on/off)](#io)
-* Easy to scale with PM2 (for small to mid-level size project)
+* [Easy to scale with PM2 (for small to mid-level size project)](#scale)
 
 ### Install <a name="install"></a> 
 * Make sure you you Node.js installed before running the following commands
@@ -375,7 +375,7 @@ this.io = function(req, res, cb) {
     cb(null, {broadcasted : req.query.mess});
 }
 ```
-* Recognize the API as a socket.io API
+* Recognize the API as a socket.io API (this is to pass socket.io object to req.io)
 ```javascript
 this.permission = { // register api and its permission to list
 
@@ -397,3 +397,11 @@ this.permission = { // register api and its permission to list
     io                                  : ['master'], // only system master can use this API
 }
 ```
+
+#### Easy to scale with PM2 (for small to mid-level size project)<a name="scale"></a>
+* <a href="https://www.npmjs.com/package/pm2" target="_blank">PM2</a> can scale your Node.js app via cli or <a href="https://app.keymetrics.io/" target="_blank">PM2 web console</a>
+* On server cli
+```javascript
+pm2 scale [app-name] 10 // forked app to 10 instances
+```
+* On PM2 web console (not free feature)
