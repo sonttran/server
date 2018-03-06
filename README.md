@@ -405,3 +405,5 @@ this.permission = { // register api and its permission to list
 pm2 scale [app-name] 10 // forked app to 10 instances
 ```
 * On PM2 web console (not free feature)
+
+
